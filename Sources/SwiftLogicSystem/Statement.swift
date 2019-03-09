@@ -148,7 +148,10 @@ extension Statement {
         switch self {
         case .variable, .sentence:
             return [self]
-        case let .universalQuantification(_, x), let .negativeUniversalQuantification(_, x), let .existentialQuantification(_, x), let .negativeExistentialQuantification(_, x):
+        case let .universalQuantification(_, x),
+             let .negativeUniversalQuantification(_, x),
+             let .existentialQuantification(_, x),
+             let .negativeExistentialQuantification(_, x):
             return x.elementaryStatements()
         case let .negativeSentence(a, p):
             return [p[a]]
@@ -175,7 +178,10 @@ extension Statement {
             return [self]
         case let .negation(x):
             return x.literals()
-        case let .universalQuantification(_, x), let .negativeUniversalQuantification(_, x), let .existentialQuantification(_, x), let .negativeExistentialQuantification(_, x):
+        case let .universalQuantification(_, x),
+             let .negativeUniversalQuantification(_, x),
+             let .existentialQuantification(_, x),
+             let .negativeExistentialQuantification(_, x):
             return x.literals()
         case let .conjunction(x, y, z), let .disjunction(x, y, z):
             return z.reduce(x.literals().union(y.literals())) {
@@ -210,7 +216,11 @@ extension Statement {
             return true
         }
         switch x {
-        case let .negation(u), let .universalQuantification(_, u), let .negativeUniversalQuantification(_, u), let .existentialQuantification(_, u), let .negativeExistentialQuantification(_, u):
+        case let .negation(u),
+             let .universalQuantification(_, u),
+             let .negativeUniversalQuantification(_, u),
+             let .existentialQuantification(_, u),
+             let .negativeExistentialQuantification(_, u):
             return self.occurs(in: u)
         case let .conjunction(u, v, w), let .disjunction(u, v, w):
             return w.reduce(self.occurs(in: u) || self.occurs(in: v)) {
@@ -293,7 +303,10 @@ extension Statement {
 
     func containsQuantifiers() -> Bool {
         switch self {
-        case .universalQuantification, .negativeUniversalQuantification, .existentialQuantification, .negativeExistentialQuantification:
+        case .universalQuantification,
+             .negativeUniversalQuantification,
+             .existentialQuantification,
+             .negativeExistentialQuantification:
             return true
         case let .negation(u):
             return u.containsQuantifiers()
@@ -403,7 +416,11 @@ extension Statement: StatementProtocol {
 extension Statement: Visualizable {
     var precedence: Precedence {
         switch self {
-        case .variable, .universalQuantification, .negativeUniversalQuantification, .existentialQuantification, .negativeExistentialQuantification:
+        case .variable,
+             .universalQuantification,
+             .negativeUniversalQuantification,
+             .existentialQuantification,
+             .negativeExistentialQuantification:
             return .functionalPrecedence
         case .sentence, .negativeSentence, .conditionalStatement, .negativeConditionalStatement:
             return .arrowPrecedence
@@ -425,7 +442,10 @@ extension Statement: Visualizable {
             return [x, y] + z
         case let .conditionalStatement(x, y), let .negativeConditionalStatement(x, y):
             return [x, y]
-        case let .universalQuantification(a, x), let .negativeUniversalQuantification(a, x), let .existentialQuantification(a, x), let .negativeExistentialQuantification(a, x):
+        case let .universalQuantification(a, x),
+             let .negativeUniversalQuantification(a, x),
+             let .existentialQuantification(a, x),
+             let .negativeExistentialQuantification(a, x):
             return [a, x]
         case let .sentence(a, p), let .negativeSentence(a, p):
             return [a, p]

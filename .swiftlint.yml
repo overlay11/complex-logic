@@ -1,5 +1,6 @@
 disabled_rules:
   - trailing_comma
+  - private_over_fileprivate
 
 opt_in_rules:
   - closure_end_indentation
@@ -30,3 +31,7 @@ identifier_name:
   excluded:
     - __allTests
     - __allTests()
+    - 'Ǝ(_:_:)'
+    - 'Ɐ(_:_:)'
+    - '∨(_:_:)'
+    - '∧(_:_:)'

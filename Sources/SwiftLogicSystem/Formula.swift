@@ -67,7 +67,9 @@ extension Formula {
             }
             let (x, y) = (premise**, conclusion**)
             let controlLiterals = x.controlLiterals().union(y.controlLiterals())
-            let substitutions = Dictionary(uniqueKeysWithValues: controlLiterals.enumerated().map { ($0.1, Statement("\($0.0)")) })
+            let substitutions = Dictionary(
+                uniqueKeysWithValues: controlLiterals.enumerated().map { ($0.1, Statement("\($0.0)")) }
+            )
             let assistiveLiterals = substitutions.values
             return (assistiveLiterals.reduce(x[substitutions], &&), assistiveLiterals.reduce(y[substitutions], &&))
         default:

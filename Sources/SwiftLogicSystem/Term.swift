@@ -27,7 +27,11 @@ extension Term {
         case let .conditionalStatement(antecedent, consequent),
              let .negativeConditionalStatement(antecedent, consequent):
             return self.occurs(in: antecedent) || self.occurs(in: consequent)
-        case let .negation(u), let .universalQuantification(_, u), let .negativeUniversalQuantification(_, u), let .existentialQuantification(_, u), let .negativeExistentialQuantification(_, u):
+        case let .negation(u),
+             let .universalQuantification(_, u),
+             let .negativeUniversalQuantification(_, u),
+             let .existentialQuantification(_, u),
+             let .negativeExistentialQuantification(_, u):
             return self.occurs(in: u)
         }
     }
@@ -46,7 +50,10 @@ extension Term {
         case let .conditionalStatement(antecedent, consequent),
              let .negativeConditionalStatement(antecedent, consequent):
             return self.occursFree(in: antecedent) || self.occursFree(in: consequent)
-        case let .universalQuantification(a, u), let .negativeUniversalQuantification(a, u), let .existentialQuantification(a, u), let .negativeExistentialQuantification(a, u):
+        case let .universalQuantification(a, u),
+             let .negativeUniversalQuantification(a, u),
+             let .existentialQuantification(a, u),
+             let .negativeExistentialQuantification(a, u):
             return a == self ? false : self.occursFree(in: u)
         }
     }
@@ -63,7 +70,10 @@ extension Term {
         case let .conditionalStatement(antecedent, consequent),
              let .negativeConditionalStatement(antecedent, consequent):
             return self.occursBound(in: antecedent) || self.occursBound(in: consequent)
-        case let .universalQuantification(a, u), let .negativeUniversalQuantification(a, u), let .existentialQuantification(a, u), let .negativeExistentialQuantification(a, u):
+        case let .universalQuantification(a, u),
+             let .negativeUniversalQuantification(a, u),
+             let .existentialQuantification(a, u),
+             let .negativeExistentialQuantification(a, u):
             return a == self ? self.occurs(in: u) : self.occursBound(in: u)
         }
     }
